@@ -15,6 +15,12 @@
     {{/each}}
   </div>
 
+  <div class="sorting_options">
+    <input type="button" class="sort_by"
+    value="{{next_sort_by_field}}" />
+    <span>Currently sorting by {{current_sort_by_field}}.</span>
+  </div>
+
   {{#if selected_name}}
   <div class="details">
     <div class="name">{{selected_name}}</div>

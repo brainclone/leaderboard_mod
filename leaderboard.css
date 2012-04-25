@@ -48,10 +48,18 @@ body {
     border-style: dashed none none none;
     border-color: #ccc;
     border-width: 4px;
-    margin: 50px 10px;
-    padding: 10px 0px;
+    margin: 5px 10px;
+    padding: 5px 0px;
 }
 
 .none {
     color: #777;
+}
+
+.settings {
+    border-style: dashed none none none;
+    border-color: #ccc;
+    border-width: 4px;
+    margin: 10px 10px;
+    padding: 5px 0px;
 }

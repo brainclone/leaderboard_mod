@@ -15,22 +15,29 @@
     {{/each}}
   </div>
 
-  <div class="sorting_options">
-    <input type="button" class="sort_by"
-    value="{{next_sort_by_field}}" />
-    <span>Currently sorting by {{current_sort_by_field}}.</span>
-  </div>
-
   {{#if selected_name}}
   <div class="details">
     <div class="name">{{selected_name}}</div>
     <input type="button" class="inc" value="Give 5 points" />
+    <input type="button" class="del" value="Remove" />
   </div>
   {{/if}}
 
   {{#unless selected_name}}
   <div class="none">Click a player to select</div>
   {{/unless}}
+
+  <div class="settings">
+    <input type="text" class="name"/>
+    <input type="button" class="add" value="Add" />
+    <br />
+    <input type="button" class="sort_by"
+    value="{{next_sort_by_field}}" />
+    <span>Currently sorting by {{current_sort_by_field}}.</span>
+    <br/>
+    <input type="button" class="reset" value="Reset scores"/>
+  </div>
+
 </template>
 
 <template name="player">

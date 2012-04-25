@@ -3,6 +3,13 @@
 
 Players = new Meteor.Collection("players");
 
+Score_Range = 10;
+Score_Unit = 5;
+
+function random_score(range, unit) {
+  return Math.floor(Math.random()*range)*unit;
+}
+
 if (Meteor.is_client) {
   Meteor.startup(function(){
     Session.set("is_sorting_by_score", true);
@@ -33,9 +40,14 @@ if (Meteor.is_client) {
   };
 
   Template.leaderboard.events = {
-    'click input.sort_by': function(){
-        Session.set("is_sorting_by_score",
-        !Session.get("is_sorting_by_score"));
+    'click input.sort_by': function() {
+      Session.set("is_sorting_by_score",
+      !Session.get("is_sorting_by_score"));
+    },
+    'click input.reset': function() {
+      Players.find().forEach(function(player) {
+        Players.update(player._id, {$set: {score: random_score(Score_Range, Score_Unit)}});
+      }); 
     },
     'click input.inc': function () {
       Players.update(Session.get("selected_player"), {$inc: {score: 5}});
@@ -60,7 +72,7 @@ if (Meteor.is_server) {
                    "Nikola Tesla",
                    "Claude Shannon"];
       for (var i = 0; i < names.length; i++)
-        Players.insert({name: names[i], score: Math.floor(Math.random()*10)*5});
+        Players.insert({name: names[i], score: random_score(Score_Range, Score_Unit)});
     }
   });
 }

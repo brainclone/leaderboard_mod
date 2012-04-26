@@ -1,3 +1,6 @@
+You need to install meteor framework first to try out this app:
+curl install.meteor.com | sh
+
 See meteor.com for more information, especially "Examples". This is the first
 example with meteor framework, modified as suggested.
 

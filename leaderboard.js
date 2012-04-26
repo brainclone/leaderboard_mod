@@ -11,6 +11,14 @@ function random_score(range, unit) {
 }
 
 if (Meteor.is_client) {
+  function add_scientist() {
+    name_to_add = $("#name_text").val();
+    //console.log(name_to_add);
+    if (name_to_add) {
+      Players.insert({name: name_to_add, score: random_score(Score_Range, Score_Unit)});
+    }
+  }
+
   Meteor.startup(function(){
     Session.set("is_sorting_by_score", true);
   });
@@ -40,17 +48,27 @@ if (Meteor.is_client) {
   };
 
   Template.leaderboard.events = {
-    'click input.sort_by': function() {
-      Session.set("is_sorting_by_score",
-      !Session.get("is_sorting_by_score"));
+
+    'click input.inc': function () {
+      Players.update(Session.get("selected_player"), {$inc: {score: 5}});
     },
+
+    'click input.add': add_scientist,
+
+    'click input.del': function() {
+      Players.remove(Session.get("selected_player"));
+      Session.set("selected_player", '');
+    },
+
     'click input.reset': function() {
       Players.find().forEach(function(player) {
         Players.update(player._id, {$set: {score: random_score(Score_Range, Score_Unit)}});
       }); 
     },
-    'click input.inc': function () {
-      Players.update(Session.get("selected_player"), {$inc: {score: 5}});
+
+    'click input.sort_by': function() {
+      Session.set("is_sorting_by_score",
+      !Session.get("is_sorting_by_score"));
     }
   };
 
@@ -59,6 +77,13 @@ if (Meteor.is_client) {
       Session.set("selected_player", this._id);
     }
   };
+
+  $(document).keypress(function(e) {
+    if(e.which == 13) { //"ENTER" key pressed;
+      //alert('You pressed enter!');
+      add_scientist();
+    }
+  });
 }
 
 // On server startup, create some players if the database is empty.

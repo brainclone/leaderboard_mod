@@ -1,0 +1,12 @@
+See meteor.com for more information, especially "Examples". This is the first
+example with meteor framework, modified as suggested.
+
+========== To Run locally:
+cd leaderboard
+meteor
+
+From your browser, access:
+http://localhost:3000/
+
+========= Remote Deployed Site:
+leaderboard_mod.meteor.com
